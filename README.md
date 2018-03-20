@@ -1,8 +1,10 @@
 # MuChain
-![eVoting Machine](logo.png "Title")
+![uChain](logo.png "Title")
 
 MuChain is a hyper scalable platform for voting or ballot polling. We have designed a new eVoting Machine based on Blockchain technology where each node contains a distributed ledger of votes. It becomes impossible to change, falsify or tamper with the recorded votes.  
 The machine comprises of a camera and a fingerprint scanner, allowing us to verify the voter’s identity over Aadhar as well as store a fingerprint of the voter’s face for accountability.   This information is hashed and encoded into the ledger along with the vote itself and is stored in the BlockChain which is concurrently available on all the eVoting Nodes. 
+
+![eVoting Machine](evm.jpg "Title")
 
 MuChain is structured such that information is in sub-blockchains which are then encoded into master blockchain network. Each sub unit corresponds to its geographically neighbouring nodes, effectively creating a variant of a Gossip-to-Gossip protocol.
 
