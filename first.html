@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+
+        <h1>Welcome To the MuChain Voting</h1>
+        <!--
+        <h2 id="instructor"></h2>
+
+        <label for="name" class="col-lg-2 control-label">Instructor Name</label>
+        <input id="name" type="text">
+
+        <label for="name" class="col-lg-2 control-label">Instructor Age</label>
+        <input id="age" type="text">
+
+        <button id="button">Update Instructor</button>
+        -->
+                <input type="text" name="userName" id="userName" placeholder="Enter User ID">
+                        <input type="text" name="partyName" id="partyName" placeholder="Enter Party ID">
+
+
+       <h2> Votes of Party 1</h2><h2 id="v1"></h2>
+        <h2>Votes of Party 2</h2><h2 id="v2"></h2>
+
+       <h2> Votes of Party 3</h2><h2 id="v3"></h2>
+        <h2>Votes of Party 4</h2><h2 id="v4"></h2>
+        <button id="btn1">Vote</button>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script>
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+
+          web3.eth.defaultAccount = web3.eth.accounts[0];
+          var CoursetroContract = web3.eth.contract([
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getCandidates",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "votersAcct",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "candidatesAcct",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "viewVotes",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "setCandidate",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_uid",
+                "type": "uint256"
+            },
+            {
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "addVote",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]);
+
+          var Coursetro = CoursetroContract.at('0x74ea06cb462c209825495e0378bf07fe0091eaa6');
+        console.log(Coursetro);
+        /*Coursetro.getInstructor(function(error, result){
+            if(!error)
+                {
+                    $("#instructor").html(result[0]+' ('+result[1]+' years old)');
+                    console.log(result);
+                }
+            else
+                console.error(error);
+        });*/
+       /* Coursetro.setCandidate(123);
+        Coursetro.setCandidate(456);*/
+            
+        $("#btn1").click(function() {
+        /*  Coursetro.setCandidate(123);
+            Coursetro.setCandidate(456);
+          var b = Coursetro.getCandidates();
+            console.log(b);
+            Coursetro.addVote(777,123);
+            Coursetro.addVote(777,123);
+           // Coursetro.addVote(7778,123);
+            var a =Coursetro.viewVotes(123).c[0];
+            var c = Coursetro.viewVotes(456).c[0];
+            console.log("Votes with 123",a);
+            console.log("Votes with 456",c);*/
+
+            var party = document.getElementById("partyName").value;
+            console.log(party);
+            var user = document.getElementById('userName').value;
+            console.log(user);
+
+            Coursetro.addVote(parseInt(user),parseInt(party));
+
+           
+           // Coursetro.setInstructor(parseInt($("#name").val()),parseInt($("#age").val()));
+        });
+
+        $("button").click(function(){
+
+             $("#v1").html(Coursetro.viewVotes(123).c[0]);
+             $("#v2").html(Coursetro.viewVotes(456).c[0]);
+              $("#v3").html(Coursetro.viewVotes(789).c[0]);
+             $("#v4").html(Coursetro.viewVotes(888).c[0]);
+
+             var a =Coursetro.viewVotes(123).c[0];
+            var c = Coursetro.viewVotes(456).c[0];
+
+             var a =Coursetro.viewVotes(789).c[0];
+            var c = Coursetro.viewVotes(888).c[0];
+            console.log(Coursetro.getCandidates());
+        });
+
+
+
+    </script>
+
+</body>
+</html>

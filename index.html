@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+ 
+    <link rel="stylesheet" type="text/css" href="main.css">
+ 
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+</head>
+<body style="background: linear-gradient(0deg, #666699,#a3a3c2);">
+    <div class="container">
+
+        <div class="col-md-8">
+           <!-- <div style="border-radius:5px 5px 0px 0px; border:1px black solid;border-bottom:0px; height:20px; width:80px; margin-top:100px;">Button</div> -->
+        </div>
+        <div class="col-md-4" style="text-align:right"><img src="logo.png"></div>
+        <div class="col-md-8" style="text-align:left;border:1px grey solid;border-radius:10px 0px 0px 10px; text-align:center; padding:30px;background-color:#f2f2f2; margin:1px #e6e6e6 solid">
+        <style>
+            td{
+                width:200px;
+                height:100%;
+            }    
+        </style>
+            <table class="table table-hover" style="margin:black"><tr class="warning"><th >Candidate Name</th><th>Candidate Number</th><th>No of Votes</th></tr><tr class="success"><td>Candidate 1</td><td>123</td><td><span class="badge" style="background-color:rgb(119, 119, 119)" id="v1">0</span></td></tr><tr class="active"><td>Candidate 2</td><td>456</td><td><span class="badge" style="background-color:rgb(119, 119, 119)" id="v2">0</span></td></tr><tr class="info"><td>Candidate 3</td><td>789</td><td><span class="badge" style="background-color:rgb(119, 119, 119)" id="v3">0</span></td></tr><tr style="background-color:#ffe6ff"><td>Candidate 4</td><td>888</td><td><span class="badge" style="background-color:rgb(119, 119, 119);" id="v4">0</span></td></tr></table>
+            </div>
+
+
+        <div class="col-md-4" style="border-radius:0px 10px 10px 0px;padding:10px;margin-top:10px;background-color:rgb(41, 41, 41);"><div>
+                <div style="margin-left:10px;"><input type="text" name="userName" id="userName" placeholder="Enter User ID">
+                <input type="text" name="partyName" style="margin-top:7px;" id="partyName" placeholder="Enter Party ID">
+                <button id="btn1" type="button" class="btn btn-success" style="margin-left:10px;">Vote</button>
+            </div>
+
+            <hr style="background-color:#808080"/>
+            <div style="color:#f2f2f2; margin-left:10px;">
+            <h4>μChain Console:</h4>
+            <textarea rows="10" cols="60" id="term" style="margin-bottom:4px;width:90%; background-color:#f2f2f2; color:black; font-family:terminal;"></textarea>
+            </div>
+            </div>
+    
+    </div>
+ 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+ 
+    <script>
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+ 
+          web3.eth.defaultAccount = web3.eth.accounts[0];
+          var CoursetroContract = web3.eth.contract([
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getCandidates",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "votersAcct",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "candidatesAcct",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "viewVotes",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "setCandidate",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_uid",
+                "type": "uint256"
+            },
+            {
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "addVote",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]);
+ 
+          var Coursetro = CoursetroContract.at('0x74ea06cb462c209825495e0378bf07fe0091eaa6');
+        console.log(Coursetro);
+        document.getElementById('term').value = document.getElementById('term').value + JSON.stringify(Coursetro);
+        var elem = document.getElementById('term');
+        elem.scrollTop = elem.scrollHeight;
+ 
+        /*Coursetro.getInstructor(function(error, result){
+            if(!error)
+                {
+                    $("#instructor").html(result[0]+' ('+result[1]+' years old)');
+                    console.log(result);
+                }
+            else
+                console.error(error);
+        });*/
+       /* Coursetro.setCandidate(123);
+        Coursetro.setCandidate(456);*/
+           
+        $("#btn1").click(function() {
+        /*  Coursetro.setCandidate(123);
+            Coursetro.setCandidate(456);
+          var b = Coursetro.getCandidates();
+            console.log(b);
+            Coursetro.addVote(777,123);
+            Coursetro.addVote(777,123);
+           // Coursetro.addVote(7778,123);
+            var a =Coursetro.viewVotes(123).c[0];
+            var c = Coursetro.viewVotes(456).c[0];
+            console.log("Votes with 123",a);
+            console.log("Votes with 456",c);*/
+ 
+            var party = document.getElementById("partyName").value;
+            console.log(party);
+            var user = document.getElementById('userName').value;
+            console.log(user);
+ 
+            Coursetro.addVote(parseInt(user),parseInt(party));
+ 
+           
+           // Coursetro.setInstructor(parseInt($("#name").val()),parseInt($("#age").val()));
+        });
+               /* var totalParties = Coursetro.getCandidates();
+ 
+        var parties = document.getElementById('parties');
+        for(var i=0;i<Coursetro.getCandidates().length;i++){
+            var temp;
+            temp = parties.innerHTML;
+            parties.innerHTML = (temp + "   " +totalParties[i].c[0]);
+        }*/
+//        console.log(totalParties);
+        $("button").click(function(){
+ 
+             $("#v1").html(Coursetro.viewVotes(123).c[0]);
+             $("#v2").html(Coursetro.viewVotes(456).c[0]);
+             $("#v3").html(Coursetro.viewVotes(789).c[0]);
+             $("#v4").html(Coursetro.viewVotes(888).c[0]);
+
+ 
+             var a =Coursetro.viewVotes(123).c[0];
+            var c = Coursetro.viewVotes(456).c[0];
+            console.log(Coursetro.getCandidates());
+        });
+ 
+ 
+ 
+    </script>
+ 
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
