@@ -19,4 +19,4 @@ The current system of voting in India is:-
 3. Subjected to Human Error: The votes are manually counted from different machines and may be subjected to human math error.
 Our current solution solves the above problems and gives us a decentralised, transparent and secure way of Voting.
 
-
+So our solution MuChain offers transparent, secure and decentralized voting at the scale.
