@@ -6,6 +6,9 @@ The machine comprises of a camera and a fingerprint scanner, allowing us to veri
 
 ![eVoting Machine](evm.jpg "Title")
 
+
+![eVoting Machine](MuChainLiveVoting.png "Title")
+
 MuChain is structured such that information is in sub-blockchains which are then encoded into master blockchain network. Each sub unit corresponds to its geographically neighbouring nodes, effectively creating a variant of a Gossip-to-Gossip protocol.
 
 A single voter cannot vote at two different places as the system first verifies the Voter’s ID by Aadhaar Number, Voter’s ID, fingerprint and face recognition and after the vote is casted the voter cannot cast vote gain or travel to another place to vote as the whole system is synchronised. 
